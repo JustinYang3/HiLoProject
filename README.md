@@ -26,10 +26,13 @@ public class ComputerPlayer extends HiLo{
     public void start(){
         boolean wantToPlay = false;
         do{
-            if (wantToPlay = super.prompt())
-               generatedNumber = super.randGenNum(); 
-            playGame();
-        } while (wantToPlay);
+            if (wantToPlay = prompt())
+            {
+                generatedNumber = super.randGenNum();
+                playGame();
+            } 
+            
+        } while (!wantToPlay);
         
         
         
@@ -43,31 +46,49 @@ public class ComputerPlayer extends HiLo{
         int count = 0;
         String ans = "";
         
-        do
+        while(!done)
         {
             int guess = min + (int)(Math.random() * (max - min + 1));
             count++;
             
             System.out.println("I guess " + guess);
             
-            if (guess > generatedNumber)
-                ans = "lower";
-            else if (guess < generatedNumber)
-                ans = "higher";
-            
-            if(ans.equals("lower"))
-		max = guess - 1;
-			
-            else if(ans.equals("higher"))
-		min = guess + 1;
-            else
-            {
-		System.out.println("Hooray!");
-		System.out.println("It took me " + count + " guesses to get it.");
-		done = true;
+            if (guess > generatedNumber) {
+                System.out.println("lower");
+                max = guess - 1;
+                break;
+            } else if (guess < generatedNumber) {
+                System.out.println("higher");
+                min = guess + 1;
+                break;
+            } else {
+                System.out.println("I guessed the right number in " + count + "guesses\n\n");
+                done = true;
             }
              
-        } while(!done); 
+
+    }
+    
+   
+    }
+    private boolean prompt()
+    {
+        boolean answer = false;
+        boolean inputOk = false;
+        while (!inputOk) {
+            System.out.print("Do you want the computer to keep guessing: Yes / No : ");
+            String input = scan.nextLine();
+            if (input.equalsIgnoreCase("y") || input.equalsIgnoreCase("yes")) {
+                inputOk = true;
+                answer = true;
+            } else if (input.equalsIgnoreCase("n")|| input.equalsIgnoreCase("no")) {
+                inputOk = true;
+                answer = false;
+            } else {
+                System.out.println(
+                        "Ohh come on. Even Mr. Bean knows where are 'y' and 'n' in the keyboard?? Please try again:");
+            }
+        }
+        return answer;
     }
 }
-
