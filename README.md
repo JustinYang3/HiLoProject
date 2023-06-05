@@ -1,4 +1,3 @@
-# HiLoProject
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -8,75 +7,84 @@
 
 package hiiloproject;
  
-import java.util.Random;
 import java.util.Scanner;
 
 public class ComputerPlayer extends HiLo{
-    private final Random generator;
     private int generatedNumber;
-    private int numberOfAttempts;
-    Scanner scan;
+    private Scanner scan;
     
     public ComputerPlayer()
     {
-        generator = new Random();
         scan = new Scanner(System.in);
     }
     
     public void start(){
-        boolean wantToPlay = false;
-        do{
-            if (wantToPlay = prompt())
-            {
-                generatedNumber = super.randGenNum();
-                playGame();
-            } 
+    boolean wantToPlay = false;
+    boolean firstTime = true;
+    do{
+        // Prompt the user if they want the computer to keep guessing
+        if (wantToPlay = prompt())
+        {
+            // Generate a random number for the computer to guess
+            generatedNumber = super.randGenNum();
+            if (firstTime){
+                // Describe the rules of the game
+                describeRules();
+                firstTime = false;
+            }
             
-        } while (!wantToPlay);
+            // Start the game
+            playGame();
+        } 
         
-        
-        
-    }
+    } while (!wantToPlay);
     
+}
+
     private void playGame()
     {
         boolean done = false;
         int min = 1;
-	int max = 100;
+        int max = 100;
         int count = 0;
-        String ans = "";
-        
+
         while(!done)
         {
+            // Generate a random guess within the range
             int guess = min + (int)(Math.random() * (max - min + 1));
             count++;
-            
+
             System.out.println("I guess " + guess);
-            
+
             if (guess > generatedNumber) {
                 System.out.println("lower");
                 max = guess - 1;
-                break;
             } else if (guess < generatedNumber) {
                 System.out.println("higher");
                 min = guess + 1;
-                break;
             } else {
-                System.out.println("I guessed the right number in " + count + "guesses\n\n");
+                System.out.println("I guessed the right number in " + count + " guesses\n\n");
                 done = true;
             }
-             
+
+        }   
+        
 
     }
     
-   
-    }
+    private void describeRules(){
+            System.out.println("\nHere are the rules: \n"
+                    + "You let the computer guess and do all the work.");
+            System.out.println("Grab some popcorn and have fun watching"
+                    + " the computer play!\n");
+        }
     private boolean prompt()
     {
         boolean answer = false;
         boolean inputOk = false;
         while (!inputOk) {
-            System.out.print("Do you want the computer to keep guessing: Yes / No : ");
+            // Prompt the user for their choice
+            System.out.println("Do you want the computer to guess: Yes / No : \n");
             String input = scan.nextLine();
             if (input.equalsIgnoreCase("y") || input.equalsIgnoreCase("yes")) {
                 inputOk = true;
@@ -86,7 +94,7 @@ public class ComputerPlayer extends HiLo{
                 answer = false;
             } else {
                 System.out.println(
-                        "Ohh come on. Even Mr. Bean knows where are 'y' and 'n' in the keyboard?? Please try again:");
+                        "Please enter 'Yes' or 'No': ");
             }
         }
         return answer;
