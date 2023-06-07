@@ -1,4 +1,4 @@
-package hiiloproject;
+package HiLoProject;
 
 
 import java.util.Scanner;
@@ -13,6 +13,7 @@ public class HiLo {
   public HiLo() {
     generator = new Random();
     scan = new Scanner(System.in);
+    generatedNumber = 0;
   }
 
   public void start() {
@@ -21,7 +22,7 @@ public class HiLo {
     boolean firstTime = true;
 
     do {
-      System.out.println("Want to play the game of Hi and Lo??");
+      System.out.println("Want to play the game of Hi and Lo?");
 
       if (wantToPlay = prompt()) {
         generatedNumber = randGenNum();
@@ -34,14 +35,14 @@ public class HiLo {
 
     } while (wantToPlay);
 
-    System.out.println("\nThanks for playing the game. Hope you loved it !!");
+    System.out.println("\nThanks for playing the game. Hope you loved it!");
   }
 
   private void describeRules() {
 
     System.out.println("\nOnly 2 Rules:");
-    System.out.println("1) Guess the secret number.");
-    System.out.println("2) The secret number is an integer between 1 and 100, inclusive :-)\n\n");
+    System.out.println("Guess the secret number.");
+    System.out.println("The secret number is an integer between 1 and 100, inclusive.\n");
   }
 
   protected int randGenNum() {
@@ -50,16 +51,19 @@ public class HiLo {
 
   private void playGame() {
       boolean done = false;
+      int count = 0;
+      
       while (!done) {
 
       int guess = getNextGuess();
+      count++;
 
       if (guess > generatedNumber) {
-        System.out.println("lower");
+        System.out.println("Too high");
       } else if (guess < generatedNumber) {
-        System.out.println("higher");
+        System.out.println("Too low");
       } else {
-        System.out.println("You guessed the right number!! Congratulations !!\n\n");
+        System.out.println("You guessed the right number in " + count + " guesses! Congratulations!\n");
         done = true;
       }
       
@@ -83,7 +87,7 @@ public class HiLo {
             answer = false;
         } else {
             System.out.println(
-                    "Ohh come on. Even Mr. Bean knows where are 'y' and 'n' in the keyboard?? Please try again:");
+                    "Please enter 'Yes' or 'No':");
         }
     }
     return answer;
